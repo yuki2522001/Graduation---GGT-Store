@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/c1afb31dbf.js"
+	crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="/assets/images/favicon2.ico"
+	type="image/x-icon">
+    <title>Xác nhận OTP</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-6 offset-3 mt-5">
+                <a th:href="@{/product/list}" class="fa fa-home" style="font-size: 50px; text-decoration: none; color: gray;"></a>
+            </div>
+            <div class="col-6 offset-3">[[${message}]]</div>
+            <div class="col-6 offset-3">[[${error}]]</div>
+            <div class="col-6 offset-3 mt-3" style="border: none; box-shadow: 0 0 2px gray; border-radius: 8px;">
+                <form th:action="@{/security/confirmOtpRegister}" class="p-3" method="post" th:object="${account}">
+                    <input type="text" hidden="hidden" th:field="*{username}" />
+                    <input type="text" hidden="hidden" th:field="*{email}" />
+                    <input type="text" hidden="hidden" th:field="*{fullname}" />
+                    <input type="text" hidden="hidden" th:field="*{password}" />
+                    <input type="text" hidden="hidden" th:field="*{image}" />
+                    <input type="text" hidden="hidden" th:field="*{gender}" />
+                    <input type="text" hidden="hidden" th:field="*{phone}" />
+                    <!-- <input type="text" hidden="hidden" th:field="*{registerDate}" /> -->
+                    <input type="text" hidden="hidden" th:field="*{address}" />
+                    <div class="form-group text-center">
+                        <p for="otp" style="font-weight: 700;">Hãy nhập mã xác nhận OTP đã được gửi đến email của bạn !</p>
+                        <input type="text" maxlength="6" name="otp" id="otp" class="form-control" />
+                    </div>
+                    <button class="btn btn-dark form-control text-center mt-3">Xác nhận</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

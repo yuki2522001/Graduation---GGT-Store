@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/c1afb31dbf.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="/assets/images/favicon2.ico" type="image/x-icon">
+    <title>Đặt hàng thành công</title>
+    <style>
+         :root {
+            --color: #4973ff;
+        }
+        
+        body {
+            font-size: 16px;
+            font-family: 'Montserrat', sans-sherif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero {
+            position: relative;
+            background: #333333;
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .hero h3 {
+            position: relative;
+            z-index: 1;
+            font-size: 4.0rem;
+            margin: 0 0 10px;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .hero p {
+            position: relative;
+            z-index: 1;
+            font-size: 1.0rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.4;
+        }
+        /* ========================= */
+        
+        .waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background-color: var(--color);
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+            transition: 500ms;
+        }
+        
+        .waves::before,
+        .waves::after {
+            content: '';
+            position: absolute;
+            width: 300vw;
+            height: 300vw;
+            top: -65vw;
+            left: 50%;
+            transform: translate(-50%, -75%);
+        }
+        
+        .waves::before {
+            border-radius: 44%;
+            background: rgba(51, 51, 51, 1);
+            animation: waves 8s linear infinite;
+        }
+        
+        .waves::after {
+            border-radius: 44%;
+            background: rgba(51, 51, 51, 0.5);
+            animation: waves 15s linear infinite;
+        }
+        
+        @keyframes waves {
+            0% {
+                transform: translate(-50%, -75%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -75%) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <section class="hero">
+        <div class="content">
+            <h3>Đặt hàng thành công</h3>
+            <p>Vui lòng chờ xác nhận đơn hàng. Cám ơn bạn đã sử dụng dịch vụ của chúng tôi !</p>
+            <p>
+                <a th:href="@{/product/list}" class="btn btn-primary">Tiếp tục mua hàng</a>
+            </p>
+        </div>
+        <div class="waves">tre</div>
+
+    </section>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>

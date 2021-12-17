@@ -1,0 +1,54 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+    <main ng-app="">
+        <form th:action="@{/security/register/Update}" method="post" class="col" style="margin: 0 auto; width: 80%">
+            <div class="panel panel-warning">
+                <div style="font-size: 24px" class="panel-heading text-center mb-5"><i class="far fa-user"></i> CẬP NHẬT HỒ SƠ CÁ NHÂN</div>
+                <div class="panel-body" style="margin: 0 auto; width: 50%">
+                    <div class="form-group mb-4">
+                        <div>Tên người dùng:</div><br/>
+                        <div th:if="${#request.remoteUser}" class="d-flex">
+                            <p style="font-size: 15px; color: blue"><b>[[${#request.remoteUser}]]</b></p>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div>Tên đăng nhập:</div><br/>
+                        <div th:if="${#request.remoteUser}">
+                            <div class="form-control" id="username">[[${#request.remoteUser}]]</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div>Mật khẩu mới:</div><br/>
+                        <div th:if="${#request.remoteUser}">
+                            <input type="password" name="password" class="form-control" required/>
+                        </div>
+                    </div><br/>
+                    <div class="form-group mb-3">
+                        <div> Nhập lại mật khẩu mới:</div><br/>
+                        <input type="password" name="repassword" class="form-control" required/>
+                    </div><br/>
+                    <div class="form-group mb-3">
+                        <div>Tên đầy đủ:</div><br/>
+                        <input type="text" name="fullname" class="form-control" required />
+                    </div>
+                    <div class="form-group mb-3">
+                        <div>Địa chỉ email:</div><br/>
+                        <input type="email" name="email" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <div>Hình đại diện:</div><br/>
+                        <input type="file" name="photo" class="form-control" required />
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <input class="mt-3 mb-5" type="checkbox" ng-model="myVar"> Bạn có chắc muốn cập nhật tài khoản ?
+                    </div>
+                </div>
+                <div class="panel-footer text-center">
+                    <button ng-show="myVar" class="btn btn-success"><i class="fas fa-sign-in-alt"></i> Cập nhật</button>
+                    <button class="btn btn-warning text-white" type="reset"><i class="fas fa-recycle"></i> Làm mới</button>
+                </div>
+
+            </div>
+        </form>
+    </main>
+</div>

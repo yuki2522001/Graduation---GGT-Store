@@ -1,0 +1,238 @@
+<div class="">
+    <ul style="margin-top: 20px; margin-left: 12px" class="nav nav-pills" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Danh
+				Mục Sản Phẩm</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Thương hiệu</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="col">
+                <div style="" class="card mt-4">
+                    <div class="card-header text-white ui inverted violet table">BẢNG DANH MỤC SẢN PHẨM</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <input class="form-control" ng-model="searchCates" style="outline: none; padding: 20px 20px; border: 1px solid gray; border-radius: 20px" type="text" placeholder="Tìm kiếm danh mục ..." />
+                            </div>
+                            <div class="col-2">
+                                <button style="float: right;" class="btn btn-outline-primary mr-4 mb-1" data-bs-toggle="modal" data-bs-target="#exampleModalToggleCTE">
+									<i class="fa fa-plus" aria-hidden="true"></i> Thêm danh mục
+								</button>
+                            </div>
+
+                        </div>
+                        <div style="margin-top: 25px" class="form-group">
+                            <table class="ui yellow table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>MÃ DANH MỤC</th>
+                                        <th>TÊN DANH MỤC</th>
+                                        <th>HÌNH ẢNH</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in pagers.categories | filter:searchCates">
+                                        <td>#{{item.id}}</td>
+                                        <td>{{item.name | uppercase}}</td>
+                                        <td><img ng-src="{{'/assets/images/' + item.image}}" class="" style="width: 80px;" alt=""></td>
+                                        <td>
+                                            <button ng-click="editCategory(item)" class="btn btn-outline-primary rounded-circle" data-bs-toggle="modal" data-bs-target="#exampleModalToggleCTE">
+												<i class="fas fa-pen-square"></i>
+											</button>
+                                            <button ng-click="deleteCategory(item)" class="btn btn-outline-danger rounded-circle">
+												<i class="fas fa-dumpster"></i>
+											</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button ng-click="pagers.first()" class="btn btn-danger">
+							<i class="fas fa-step-backward"></i>
+						</button>
+                        <button ng-click="pagers.prev()" class="btn btn-primary">
+							<i class="fas fa-backward"></i>
+						</button>
+                        <button class="btn btn-default">{{pagers.page + 1}} /
+							{{pagers.count}}</button>
+                        <button ng-click="pagers.next()" class="btn btn-success">
+							<i class="fas fa-forward"></i>
+						</button>
+                        <button ng-click="pagers.last()" class="btn btn-warning">
+							<i class="fas fa-step-forward"></i>
+						</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="col">
+                <div style="" class="card  mt-4">
+                    <div class="card-header text-white ui inverted violet table">BẢNG THƯƠNG HIỆU</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <input class="form-control" ng-model="searchProd" style="outline: none; padding: 20px 20px; border: 1px solid gray; border-radius: 20px" type="text" placeholder="Tìm kiếm thương hiệu ..." />
+                            </div>
+                            <div class="col-2">
+                                <button style="float: right;" class="btn btn-outline-primary mr-4 mb-1" data-bs-toggle="modal" href="#exampleModalToggle">
+									<i class="fa fa-plus" aria-hidden="true"></i> Thêm Thương Hiệu
+								</button>
+                            </div>
+                        </div>
+                        <div style="margin-top: 25px" class="form-group">
+                            <table class="ui olive table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>MÃ THƯƠNG HIỆU</th>
+                                        <th>TÊN THƯƠNG HIỆU</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="prod in pagersprd.producers | filter:searchProd">
+                                        <td>#{{prod.id}}</td>
+                                        <td>{{prod.name | uppercase}}</td>
+                                        <td>
+                                            <button ng-click="editProducer(prod)" class="btn btn-outline-primary rounded-circle" data-bs-toggle="modal" href="#exampleModalToggle">
+												<i class="fas fa-pen-square"></i>
+											</button>
+                                            <button ng-click="deleteProducer(prod)" class="btn btn-outline-danger rounded-circle">
+												<i class="fas fa-dumpster"></i>
+											</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button ng-click="pagersprd.first()" class="btn btn-danger">
+							<i class="fas fa-step-backward"></i>
+						</button>
+                        <button ng-click="pagersprd.prev()" class="btn btn-primary">
+							<i class="fas fa-backward"></i>
+						</button>
+                        <button class="btn btn-default">{{pagersprd.page + 1}} /
+							{{pagersprd.count}}</button>
+                        <button ng-click="pagersprd.next()" class="btn btn-success">
+							<i class="fas fa-forward"></i>
+						</button>
+                        <button ng-click="pagersprd.last()" class="btn btn-warning">
+							<i class="fas fa-step-forward"></i>
+						</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalToggleCTE" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header text-white ui inverted violet table">QUẢN LÝ DANH MỤC SẢN PHẨM</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm">
+                            <form name="myform" action="#" onsubmit="return create()">
+                                <div class="row mt-2">
+                                    <div class="col-sm-8">
+                                        <div class="form-group col-sm-8">
+                                            <div>Mã loại sản phẩm</div>
+                                            <br /> <input maxlength="4" ng-model="formCategory.id" name="id" class="form-control" required> <span style="color: red;" id="id"></span>
+                                        </div>
+                                        <div class="form-group col-sm-8 mt-3">
+                                            <div>Tên loại sản phẩm</div>
+                                            <br /> <input min="1" ng-model="formCategory.name" name="name" class="form-control" required> <span style="color: red;" id="name"></span>
+                                        </div>
+                                        <div class="form-group col-sm-8 mt-3 mb-4">
+                                            <br>
+                                            <div>Hình ảnh</div>
+                                            <br> <input type="file" class="form-control" name="image" onchange="angular.element(this).scope().imageChangedCategory(this.files)">
+                                            <span style="color: red;" id="image"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-center mt-2">
+                                        <label class="" for="image"> <img
+											ng-src="{{'/assets/images/' + formCategory.image}}"
+											style="max-width: 100%" alt=""></label>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button ng-click="createCategory()" ng-show="item == -1" class="btn btn-outline-success">
+						<i class="fas fa-download"></i> Lưu
+					</button>
+                    <button style="margin-left: 10px" ng-hide="item == -1" ng-click="updateCategory()" class="btn btn-outline-primary pull-left">
+						<i class="fas fa-pencil-alt"></i> Cập nhật
+					</button>
+                    <button style="margin-left: 10px; float: right;" ng-hide="item == -1" ng-click="deleteCategory(formCategory)" class="btn btn-outline-danger pull-left">
+						<i class="fas fa-minus-circle"></i> Xóa
+					</button>
+                    <button style="margin-left: 10px" ng-click="resetCategory()" class="btn btn-outline-warning pull-left">
+						<i class="far fa-file"></i> Làm mới
+					</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div style="" class="card">
+                    <div class="card-header text-white ui inverted violet table">QUẢN LÝ THƯƠNG HIỆU</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm">
+                                <form name="myyform" action="#" onsubmit="return create()">
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <div>Mã Thương Hiệu</div>
+                                            <br /> <input maxlength="4" ng-model="formProducer.id" name="ids" class="form-control" required> <span style="color: red;" id="ids"></span>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <div>Tên Thương Hiệu</div>
+                                            <br /> <input min="1" ng-model="formProducer.name" name="names" class="form-control" required> <span style="color: red;" id="names"></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button ng-click="createProducer()" ng-show="item == -1" class="btn btn-outline-success">
+							<i class="fas fa-download"></i> Lưu
+						</button>
+                        <button style="margin-left: 10px" ng-hide="item == -1" ng-click="updateProducer()" class="btn btn-outline-primary pull-left">
+							<i class="fas fa-pencil-alt"></i> Cập nhật
+						</button>
+                        <button style="margin-left: 10px; float: right;" ng-hide="item == -1" ng-click="deleteProducer(formProducer)" class="btn btn-outline-danger pull-left">
+							<i class="fas fa-minus-circle"></i> Xóa
+						</button>
+                        <button style="margin-left: 10px" ng-click="resetProducer()" class="btn btn-outline-warning pull-left">
+							<i class="far fa-file"></i> Làm mới
+						</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+<div class="">
+	<div class="tab-content" id="pills-tabContent">
+		<div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+			aria-labelledby="pills-home-tab">
+			<div class="col">
+				<div style="" class="card mt-4">
+					<div class="card-header text-white ui inverted violet table">ĐÁNH GIÁ SẢN PHẨM</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<input class="form-control" ng-model="searchComms"
+									style="outline: none; padding: 20px 20px; border: 1px solid gray; border-radius: 20px"
+									type="text" placeholder="Tìm kiếm đánh giá ..." />
+							</div>
+							
+
+						</div>
+						<div style="margin-top: 25px" class="form-group">
+							<table class="ui yellow table table-hover">
+								<thead>
+									<tr>
+										<th>No.</th>
+										<th>MÃ SP</th>
+										<th>HÌNH ẢNH</th>
+										<th>NỘI DUNG ĐÁNH GIÁ</th>
+										<th>TÀI KHOẢN</th>
+										<th>THỜI GIAN</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in comments | filter:searchComms">
+										<td><span class="badge bg-primary">{{item.id}}</span></td>
+										<td>{{item.product.id}}</td>
+										<td><img ng-src="{{'/assets/images/' + item.product.image}}"
+											class="" style="width: 80px;" alt=""></td>
+										<td>{{item.com}}</td>
+										<td>{{item.account.username | uppercase}}</td>
+										<td>{{item.createDate | date: 'dd-MM-yyyy'}}</td>
+										<td>
+											
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="card-footer text-center">
+						<button ng-click="pagers.first()" class="btn btn-danger">
+							<i class="fas fa-step-backward"></i>
+						</button>
+						<button ng-click="pagers.prev()" class="btn btn-primary">
+							<i class="fas fa-backward"></i>
+						</button>
+						<button class="btn btn-default">{{pagers.page + 1}} /
+							{{pagers.count}}</button>
+						<button ng-click="pagers.next()" class="btn btn-success">
+							<i class="fas fa-forward"></i>
+						</button>
+						<button ng-click="pagers.last()" class="btn btn-warning">
+							<i class="fas fa-step-forward"></i>
+						</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+			aria-labelledby="pills-profile-tab">
+			<div class="col">
+				<div style="" class="card  mt-4">
+					<div class="card-header text-white ui inverted violet table">BẢNG
+						THƯƠNG HIỆU</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-10">
+								<input class="form-control" ng-model="searchProd"
+									style="outline: none; padding: 20px 20px; border: 1px solid gray; border-radius: 20px"
+									type="text" placeholder="Tìm kiếm thương hiệu ..." />
+							</div>
+							<div class="col-2">
+								<button style="float: right;"
+									class="btn btn-outline-success mr-4 mb-1"
+									data-bs-toggle="modal" href="#exampleModalToggle">
+									<i class="fa fa-plus" aria-hidden="true"></i> Thêm Thương Hiệu
+								</button>
+							</div>
+						</div>
+						<div style="margin-top: 25px" class="form-group">
+							<table class="ui olive table">
+								<thead>
+									<tr>
+										<th>MÃ THƯƠNG HIỆU</th>
+										<th>TÊN THƯƠNG HIỆU</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="prod in pagersprd.producers | filter:searchProd">
+										<td>#{{prod.id}}</td>
+										<td>{{prod.name | uppercase}}</td>
+										<td>
+											<button ng-click="editProducer(prod)"
+												class="btn btn-outline-primary rounded-circle"
+												data-bs-toggle="modal" href="#exampleModalToggle">
+												<i class="fas fa-pen-square"></i>
+											</button>
+											<button ng-click="deleteProducer(prod)"
+												class="btn btn-outline-danger rounded-circle">
+												<i class="fas fa-dumpster"></i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="card-footer text-center">
+						<button ng-click="pagersprd.first()" class="btn btn-danger">
+							<i class="fas fa-step-backward"></i>
+						</button>
+						<button ng-click="pagersprd.prev()" class="btn btn-primary">
+							<i class="fas fa-backward"></i>
+						</button>
+						<button class="btn btn-default">{{pagersprd.page + 1}} /
+							{{pagersprd.count}}</button>
+						<button ng-click="pagersprd.next()" class="btn btn-success">
+							<i class="fas fa-forward"></i>
+						</button>
+						<button ng-click="pagersprd.last()" class="btn btn-warning">
+							<i class="fas fa-step-forward"></i>
+						</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

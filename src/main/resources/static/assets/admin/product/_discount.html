@@ -1,0 +1,123 @@
+<div class="">
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="col">
+                <div style="" class="card">
+                    <div class="card-header text-white ui inverted violet table">BẢNG GIẢM GIÁ SẢN PHẨM
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <div style="margin: 0 auto" class="row container">
+                                    <input class="form-control" ng-model="searchCates" style="outline: none; padding: 20px 20px; border: 1px solid gray; border-radius: 20px" type="text" placeholder="Tìm kiếm giảm giá ..." />
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <button style="float: right;" class="btn btn-outline-primary mr-4 mb-1" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"> <i class="fa fa-plus" aria-hidden="true"></i> Thêm giảm giá</button>
+                            </div>
+                        </div>
+                        <div style="margin-top: 25px" class="form-group">
+                            <table class="ui red table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>MÃ GIẢM GIÁ</th>
+                                        <th>TÊN GIẢM GIÁ</th>
+                                        <th>PHẦN TRĂM</th>
+                                        <th>NGÀY TẠO</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in pagersdicount.percents | filter:searchCates">
+                                        <td>#{{item.id}}</td>
+                                        <td>{{item.nameDiscount | uppercase}}</td>
+                                        <td>{{item.percents}} %</td>
+                                        <td>{{item.createDate | date: 'dd-MM-yyyy'}}</td>
+                                        <td>
+                                            <button ng-click="editPercent(item)" class="btn btn-outline-primary rounded-circle" data-bs-toggle="modal" href="#exampleModalToggle">
+												<i class="fas fa-pen-square"></i>
+											</button>
+                                            <button ng-click="deleteDiscount(item)" class="btn btn-outline-danger rounded-circle">
+												<i class="fas fa-dumpster"></i>
+											</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button ng-click="pagersdicount.first()" class="btn btn-danger">
+							<i class="fas fa-step-backward"></i>
+						</button>
+                        <button ng-click="pagersdicount.prev()" class="btn btn-primary">
+							<i class="fas fa-backward"></i>
+						</button>
+                        <button class="btn btn-default">{{pagersdicount.page + 1}} /
+							{{pagersdicount.count}}</button>
+                        <button ng-click="pagersdicount.next()" class="btn btn-success">
+							<i class="fas fa-forward"></i>
+						</button>
+                        <button ng-click="pagersdicount.last()" class="btn btn-warning">
+							<i class="fas fa-step-forward"></i>
+						</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header text-white ui inverted violet table">QUẢN LÝ GIẢM GIÁ SẢN PHẨM</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm">
+                            <form name="myform" action="#" onsubmit="return create()">
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <div>Mã loại giảm giá</div>
+                                        <br /> <input ng-model="formPercent.id" name="id" class="form-control" required>
+                                        <span style="color: red;" id="id"></span>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <div>Tên loại giảm giá</div>
+                                        <br /> <input min="1" ng-model="formPercent.nameDiscount" name="nameDiscount" class="form-control" required>
+                                        <span style="color: red;" id="nameDiscount"></span>
+                                    </div>
+                                    <div class="form-group col-sm-6 mt-3">
+                                        <div>Phần trăm giảm giá</div>
+                                        <br /> <input min="0" type="number" ng-model="formPercent.percents" name="percents" class="form-control" required>
+                                        <span style="color: red;" id="percents"></span>
+                                    </div>
+                                    <div class="form-group col-sm-6 mt-3">
+                                        <div>Ngày tạo</div>
+                                        <br /> <input ng-model="formPercent.createDate" name="createDate" type="date" class="form-control">
+                                        <span style="color: red;" id="createDate"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button ng-click="createDiscount()" ng-show="item == -1" class="btn btn-outline-success">
+                        <i class="fas fa-download"></i> Lưu
+                    </button>
+                    <button style="margin-left: 10px" ng-hide="item == -1" ng-click="updateDiscount()" class="btn btn-outline-primary pull-left">
+                        <i class="fas fa-pencil-alt"></i> Cập nhật
+                    </button>
+                    <button style="margin-left: 10px; float: right;" ng-hide="item == -1" ng-click="deleteDiscount(formPercent)" class="btn btn-outline-danger pull-left">
+                        <i class="fas fa-minus-circle"></i> Xóa
+                    </button>
+                    <button style="margin-left: 10px" ng-click="resetDiscount()" class="btn btn-outline-warning pull-left">
+                        <i class="far fa-file"></i> Làm mới
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<div style="margin-top: 20px" class="card">
+    <div class="card-header text-white ui inverted violet table">PHÂN QUYỀN SỬ DỤNG QUẢN LÝ</div>
+    <div class="card-body">
+        <div style="margin: 0 auto" class="container">
+            <input class="form-control mb-3" ng-model="searchAuthorized" style="outline: none; padding: 10px 20px; border: 1px solid black; border-radius: 20px" type="text" placeholder="Tìm kiếm ..." />
+        </div>
+        <table class="ui teal table table-hover">
+            <thead class="">
+                <tr>
+                    <th></th>
+                    <th ng-repeat="role in roles" class="text-center">{{role.name}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="acc in admins | filter:searchAuthorized">
+                    <td>{{acc.fullname}}</td>
+                    <th ng-repeat="role in roles" class="text-center"><input ng-checked="authority_of(acc,role)" ng-click="authority_changed(acc,role)" type="checkbox" /></th>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header text-white bg-dark">PHÂN QUYỀN NGƯỜI DÙNG</div>
+    <div class="card-body">
+        <div style="margin: 0 auto" class="container">
+            <input class="form-control mb-3" ng-model="searchUser" style="outline: none; padding: 10px 20px; border: 1px solid black; border-radius: 20px" type="text" placeholder="Tìm kiếm ..." />
+        </div>
+        <table class="ui violet table table-hover">
+            <thead class="">
+                <tr>
+                    <th></th>
+                    <th ng-repeat="role in roles" class="text-center">{{role.name}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="acc in cust | filter:searchUser">
+                    <td>{{acc.fullname}}</td>
+                    <th ng-repeat="role in roles" class="text-center"><input ng-checked="authority_of_cust(acc,role)" ng-click="authority_changed_cust(acc,role)" type="checkbox" /></th>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>

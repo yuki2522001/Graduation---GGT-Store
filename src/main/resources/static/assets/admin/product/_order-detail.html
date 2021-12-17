@@ -1,0 +1,173 @@
+<!-- Button trigger modal -->
+
+<div style="margin-top: 20px;" class="card-body">
+    <div style="margin: 0 auto; margin-bottom: 20px" class="container">
+        <input class="form-control" ng-model="searchOrderDetails" style="outline: none; padding: 20px 20px; border: 1px solid black; border-radius: 20px" type="text" placeholder="Tìm kiếm đơn hàng ..." />
+    </div>
+    <table class="ui green table table-hover">
+        <thead class="">
+            <tr>
+                <th>Mã đơn hàng</th>
+                <th>Hình ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Tổng tiền</th>
+                <th>Số lượng</th>
+                <th>Địa chỉ</th>
+                <th>Ngày đặt hàng</th>
+                <th>Người đặt hàng</th>
+                <th>Trạng thái</th>
+                <th></th>
+                <th></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in pagersod.orderDetail | filter:searchOrderDetails">
+                <td>#{{item.id}}</td>
+                <td><img ng-src="{{'/assets/images/' + item.product.image}}" class="" style="width: 60px;" alt=""></td>
+                <td>{{item.product.name}}</td>
+                <td>{{item.price | number}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.order.address}}</td>
+                <td>{{item.order.createDate | date: 'dd-MM-yyyy'}}</td>
+                <td>{{item.order.account.username}}</td>
+                <td>
+                    <span ng-if="item.status==1" class="badge bg-warning">Đang chờ</span>
+                    <span ng-if="item.status==2" class="badge bg-primary">Đang giao</span>
+                    <span ng-if="item.status==3" class="badge bg-danger">Đã hủy</span>
+                    <span ng-if="item.status==4" class="badge bg-success">Hoàn thành</span>
+                </td>
+                <td>
+                    <button ng-click="editOrderDetail(item)" type="button" class="btn btn-outline-primary rounded-circle" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fas fa-info-circle"></i>
+                      </button>
+                    <!-- <button ng-click="editOrderDetail(item)" class="btn btn-primary"><i class="fas fa-info-circle"></i></button> -->
+                </td>
+                <td>
+                    <button ng-if="item.status==1 || item.status==2" ng-click="deleteOrderDetail(item)" class="btn btn-outline-danger pull-left rounded-circle">
+                     <i class="fas fa-recycle"></i>
+                    </button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="card-footer text-center">
+    <button ng-click="pagersod.first()" class="btn btn-danger">
+        <i class="fas fa-step-backward"></i>
+    </button>
+    <button ng-click="pagersod.prev()" class="btn btn-primary">
+        <i class="fas fa-backward"></i>
+    </button>
+    <button class="btn btn-default">{{pagersod.page + 1}} /
+        {{pagersod.count}}</button>
+    <button ng-click="pagersod.next()" class="btn btn-success">
+        <i class="fas fa-forward"></i>
+    </button>
+    <button ng-click="pagersod.last()" class="btn btn-warning">
+        <i class="fas fa-step-forward"></i>
+    </button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Quản lý đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <div>Mã đơn hàng</div><br/>
+                        <input ng-model="formOrderDetail.id" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <div>Mã sản phẩm</div><br/>
+                        <input ng-model="formOrderDetail.product.id" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <div>Tên sản phẩm</div><br/>
+                        <input ng-model="formOrderDetail.product.name" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <div>Đơn giá</div><br/>
+                        <input ng-model="formOrderDetail.product.price | number" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Tổng tiền</div><br/>
+                        <input ng-model="formOrderDetail.price | number" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Số lượng</div><br/>
+                        <input ng-model="formOrderDetail.quantity" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Địa chỉ</div><br/>
+                        <input ng-model="formOrderDetail.order.address" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Ngày đặt hàng</div><br/>
+                        <input ng-model="formOrderDetail.order.createDate" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Người đặt hàng</div><br/>
+                        <input ng-model="formOrderDetail.order.account.username" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Người nhận</div><br/>
+                        <input ng-model="formOrderDetail.order.account.fullname" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Email</div><br/>
+                        <input ng-model="formOrderDetail.order.account.email" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Trạng thái (<b style="color: red">*</b>)</div><br/>
+                        <div class="">
+                            <label class="radio-inline">
+                                        <input checked="checked" ng-model="formOrderDetail.status" style="margin-right: 6px" type="radio" ng-value="1" name="status" class=""> Đang chờ
+                                    </label>
+                            <label class="radio-inline">
+                                        <input ng-model="formOrderDetail.status" style="margin-left: 23px" type="radio" ng-value="2" name="status" class=""> Đang giao
+                                    </label><br />
+                            <label class="radio-inline">
+                                        <input ng-model="formOrderDetail.status" style="margin-right: 5px" type="radio" ng-value="3" name="status" class=""> Đã hủy
+                                    </label>
+                            <label class="radio-inline">
+                                        <input ng-model="formOrderDetail.status" style="margin-left: 40px" type="radio" ng-value="4" name="status" class=""> Hoàn thành
+                                    </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Phường</div><br/>
+                        <input ng-model="formOrderDetail.order.ward" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Quận</div><br/>
+                        <input ng-model="formOrderDetail.order.district" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Thành phố</div><br/>
+                        <input ng-model="formOrderDetail.order.city" class="form-control" readonly>
+                    </div>
+                    <div class="form-group col-sm-3 mt-3">
+                        <div>Mã zipcode</div><br/>
+                        <input ng-model="formOrderDetail.order.zipcode" class="form-control" readonly>
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <div>Ghi chú</div><br/>
+                        <textarea ng-model="formOrderDetail.order.note" rows="4" cols="10" class="form-control" readonly></textarea>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button ng-click="updateOrderdetail()" class="btn btn-outline-warning"><i class="fas fa-wrench"></i> Cập nhật</button>
+                    <button style="margin-left: 10px; float: right" ng-click="deleteOrderDetail(formOrderDetail)" class="btn btn-outline-danger pull-right"><i class="fas fa-ban"></i> Hủy đơn</button>
+                    <button style="margin-left: 10px" ng-click="resetOrderDetail()" class="btn btn-outline-primary">
+                            <i class="fas fa-recycle"></i> Làm mới
+                        </button>
+                </div>
+            </div>
+        </div>
+    </div></div>

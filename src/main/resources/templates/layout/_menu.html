@@ -1,0 +1,160 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<nav style="background-color: rgb(26, 148, 255);" class="navbar navbar-expand-lg">
+		<div class="container">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a th:text="#{menu.home}"
+						class="nav-link text-white" th:href="@{/product/list}">Trang chủ</a></li>
+					<li class="nav-item"><a th:text="#{menu.feedback}"
+						class="nav-link text-white" th:href="@{/sendMail}">Góp ý</a></li>
+					<li class="nav-item"><a th:text="#{menu.about}"
+						class="nav-link text-white" th:href="@{/home/reduce}">Giới thiệu</a></li>
+					<li class="nav-item"><a th:text="#{menu.contact}"
+						class="nav-link text-white" th:href="@{/home/contact}">Liên hệ</a></li>
+					<th:block th:if="${#request.remoteUser}">
+						<li class="nav-item dropdown"><a th:text="#{menu.order}"
+							class="nav-link dropdown-toggle text-white" id="navbarDropdown"
+							role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Giỏ hàng </a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li><a th:text="#{menu.order}" class="dropdown-item "
+									th:href="@{/cart/view}">Giỏ hàng của bạn</a></li>
+								<li><a th:text=#{menu.Alreadyordered} class="dropdown-item"
+									th:href="@{/order/list}">Đơn hàng đã đặt</a></li>
+								<li><a class="dropdown-item"
+									th:href="@{/cart/favorite/product}">Sản phẩm yêu thích</a></li>
+							</ul></li>
+
+
+
+					</th:block>
+
+					<li class="nav-item dropdown"><a th:text="#{menu.support}"
+						class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Hỗ trợ </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a th:text="#{menu.support}" class="dropdown-item"
+								href=""> Hỗ trợ</a></li>
+							<li><a th:text="#{menu.support.notification}"
+								class="dropdown-item" href=""> Thông báo</a></li>
+						</ul></li>
+					<li class="nav-item dropdown"><a th:text="#{menu.language}"
+						class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Ngôn ngữ </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="?lang=vi"><i
+									class="vn flag"></i> Tiếng Việt</a></li>
+							<li><a class="dropdown-item" href="?lang=en"><i
+									class="us flag"></i> English</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a id="translate_select" class="dropdown-item" href="#">Google
+									dịch</a></li>
+						</ul></li>
+					<li class="nav-item dropdown"><a th:text="#{menu.account}"
+						class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Tài khoản </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li th:unless="${#request.remoteUser}"><a
+								th:text="#{menu.login}" class="dropdown-item"
+								th:href="@{/security/login/form}">Đăng nhập</a></li>
+							<li th:unless="${#request.remoteUser}"><a
+								th:text="#{menu.signin}" class="dropdown-item"
+								th:href="@{/security/register/form}">Đăng ký</a></li>
+							<li th:unless="${#request.remoteUser}"><a
+								class="dropdown-item" th:href="@{/security/forgotPassword}">Quên
+									mật khẩu</a></li>
+
+							<li th:if="${#request.remoteUser}" class="nav-item"><a
+								th:text="#{menu.login.status}" class="nav-link text-success"
+								href=""><b>Trạng thái : ONL</b></a></li>
+							<li
+								th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAF')}"
+								class="nav-item"><a th:text="#{menu.admin}"
+								class="nav-link" th:href="@{/admin/home/index}" target="_blank">Trang Quản
+									trị viên</a></li>							
+							<li th:if="${#request.remoteUser}" class="nav-item"><a
+								th:text="#{menu.login.updatePro}" class="nav-link"
+								th:href="@{|/account/detail/${#request.remoteUser}|}">Cập
+									nhật hồ sơ</a></li>
+							<li th:if="${#request.remoteUser}" class="nav-item"><a
+								th:text="#{menu.logout}" class="nav-link"
+								th:href="@{/security/logoff}">Đăng xuất</a></li>
+						</ul></li>
+				</ul>
+				<div style="margin-right: 11px;" class="d-flex mr-5">
+					<div th:if="${#request.remoteUser}" class="d-flex mt-3">
+						<a th:href="@{|/account/detail/${#request.remoteUser}|}"
+							style="font-size: 15px; text-decoration: none; color: black"><b class="text-white"><i
+								class="fas fa-user-circle text-white"></i> [[${#request.remoteUser}]]</b></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<nav style="background-color: rgb(26, 148, 255)" class="navbar navbar-expand-lg">
+		<div class="container">
+			<a style="font-size: 40px" class="navbar-brand text-white"
+				th:href="@{/product/list}"><i style="font-size: 50px" class="fab fa-gg"></i> GGT Store</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse col-6"
+				id="navbarSupportedContent">
+				<form style="margin: 0 auto;" th:action="@{/product/search}">
+					<div class="ui action input">
+						<input style="width: 800px; height: 40px" name="name" type="text" placeholder="Tìm kiếm sản phẩm ...">
+						<button class="btn btn-primary">
+							<i style="width: 35px" class="search icon"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+
+
+			<div th:if="${#request.remoteUser}">
+				<a th:href="@{/cart/view}">
+					<button style="margin-right: 25px; border-radius: 100%" type="button"
+						class="btn btn-light position-relative">
+						<i class="fa fa-cart-plus"></i> <span style="font-size: 15px"
+							class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+							{{cart.count}} </span>
+					</button>
+				</a>
+			</div>
+			<div th:unless="${#request.remoteUser}" class="offcanvas-body">
+				<div style="margin-right: 0px" class="">
+					<a style="border-radius: 100%" th:href="@{/security/login/form}"
+						class="btn btn-light form-control"><i
+						class="fas fa-shopping-bag"></i></a>
+				</div>
+			</div>
+			
+			
+			<div th:if="${#request.remoteUser}">
+				<a th:href="@{/cart/favorite/product}">
+					<button style="margin-right: 25px; border-radius: 100%" type="button"
+						class="btn btn-danger position-relative">
+						<i style="" class="fas fa-heart"></i> <span style="font-size: 15px"
+							class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-danger">
+							{{cartFav.countFav}} </span>
+					</button>
+				</a>
+			</div>
+			<div th:unless="${#request.remoteUser}">
+				<div style="margin-left: 10px" class="">
+					<a style="border-radius: 100%" th:href="@{/security/login/form}"
+						class="btn btn-danger form-control"><i style="" class="fas fa-heart"></i></a>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>

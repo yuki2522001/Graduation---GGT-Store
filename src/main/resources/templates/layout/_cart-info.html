@@ -1,0 +1,28 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="panel panel-default">
+		
+	</div>
+	<button class="btn btn-primary form-control mt-3" type="button"
+		data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+		aria-controls="offcanvasRight">Giỏ hàng</button>
+
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+		aria-labelledby="offcanvasRightLabel">
+		<div class="offcanvas-header">
+			<h5 id="offcanvasRightLabel">Giỏ hàng của bạn</h5>
+			<button type="button" class="btn-close text-reset"
+				data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div class="panel-body">
+			<b class="text-info"> <i class="fas fa-star-half-alt"></i> Thông
+				tin giỏ hàng
+			</b>
+			<hr />
+			<a th:href="@{/cart/view}">{{cart.count}} sản phẩm </a><br />
+			<hr />
+			<b class="text-primary">$ {{cart.amount | number:2}} (Tạm tính)</b>
+		</div>
+		</div>
+	</div>
+</div>

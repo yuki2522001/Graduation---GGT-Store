@@ -1,0 +1,20 @@
+<ul style="margin-top: 20px; margin-left: 10px" class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item" role="presentation">
+      <button class="nav-link " id="pills-discount-tab" data-bs-toggle="pill" data-bs-target="#pills-discount" type="button" role="tab" aria-controls="pills-discount" aria-selected="true">Quản lý giảm giá</button>
+  </li>
+  <li class="nav-item " role="presentation">
+      <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Danh sách sản phẩm</button>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+      <div ng-include="'/assets/admin/product/_form.html'"></div>
+  </div>
+
+  <div class="tab-pane fade " id="pills-discount" role="tabpanel" aria-labelledby="pills-discount-tab">
+      <div ng-include="'/assets/admin/product/_discount.html'"></div>
+  </div>
+  <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <div ng-include="'/assets/admin/product/_table.html'"></div>
+  </div>
+</div>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<body>
+    <main>
+        <div class="row">
+            <div class="col-3">
+                <div class="product_left_sidebar">
+                    <aside class="left_sidebar p_catgories_widget">
+                        <div style="float: left" class="p_w_title">
+                            <div class="panel-body text-center" style="font-size: 17px;">
+                                <strong> <i class="fas fa-stream"></i> BỘ LỌC TÌM KIẾM </strong>
+                            </div>
+                            <div class="sidebar-categorie mt-40">
+                                <h6 class="ml-3 text-center mt-3"> <strong>Theo danh mục</strong></h6>
+                                <ul class="sidbar-style mt-4">
+                                    <li class="form-check mb-2" th:each="c: ${cates}">
+                                        🔥
+                                        <a class="form-check-label hi" style="color: black; padding: 6px;" th:text="${c.name}" th:href="@{|/product/list/search?sid=${c.id}|}">[[${c.name}]]</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="sidebar-categorie mt-40">
+                                <h6 class="ml-3 text-center mt-4 mb-3"> <strong>Theo khoảng giá</strong></h6>
+                                <form th:action="@{/product/searchprice}" class="ml-5" method="post">
+                                    <div class="form-group row" style="float: left;">
+                                        <div class="col-5">
+                                            <input type="number" min="0" style="width: 130px;font-size: 15px;" class="form-control" name="min" th:value="${param.min}" placeholder="Tối thiểu" required="required">
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="number" min="0" style="width: 130px;font-size: 15px;" class="form-control" name="max" th:value="${param.max}" placeholder="Tối đa" required="required">
+                                        </div>
+                                        <div class="col-2">
+                                            <button style="height: 35px; width: 42px;" class="btn btn-primary form-control"><i style="color: dark" class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> <br> <br>
+                            <div class="sidebar-categorie mt-40">
+                                <h6 class="ml-3 text-center mt-4"> <strong>Theo hãng sản xuất</strong></h6>
+                                <ul class="sidbar-style mt-4">
+                                    <li class="form-check mb-2" th:each="pro: ${producers}">
+                                        🐱‍🏍
+                                        <a class="form-check-label hi" style="color: black; padding: 6px;" th:text="${pro.name}" th:href="@{|/producer/list/search?pid=${pro.id}|}">[[${pro.name}]]</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
+            <div class="col-9">
+                <div style="background: rgb(27 136 231); height: 57px;" class="grid-list-top border-default universal-padding d-md-flex justify-content-md-between align-items-center mb-30">
+                    <form class="mt-5 text-center" th:action="@{/product/page}" method="get">
+                        <input hidden="hidden" th:value="${name}" name="name" />
+                        <input hidden="hidden" th:value="${brand==null?-1:brand}" name="brand" />
+                        <input hidden="hidden" th:value="${productPage.number}" name="page" />
+                        <!--  -->
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="" class="mt-2 text-white"><b>Sắp xếp theo:</b></label>
+                            </div>
+                            <div class="col-5 mb-5">
+                                <select style="width: 282px;" name="filter" class="form-control ui selection dropdown" onchange="this.form.submit()">
+                                    <option th:selected="${filter==0}" value="0">Mặc định</option>
+                                    <option th:selected="${filter==1}" value="1">Mới nhất</option>
+                                    <option th:selected="${filter==2}" value="2">Cũ nhất</option>
+                                    <option th:selected="${filter==3}" value="3">Giá giảm dần</option>
+                                    <option th:selected="${filter==4}" value="4">Giá tăng dần</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </form>
+                    <div class="main-toolbar-sorter clearfix">
+                        <div class="toolbar-sorter d-flex align-items-center">
+                            <label class="" for="" style="font-size: 15px; margin-right: 10px"><strong style="color: white">Hiển thị:</strong></label>
+                            <form style="margin-right: 10px" action="">
+                                <select class="form-control" name="size" id="size" onchange="this.form.submit()">
+                                        <option th:selected="${productPage.size == 9}" value="9">9</option>
+                                        <option th:selected="${productPage.size == 18}" value="18">18</option>
+                                        <option th:selected="${productPage.size == 27}" value="27">27</option>
+                                        <option th:selected="${productPage.size == 50}" value="50">50</option>
+                                        <option th:selected="${productPage.size == 100}" value="100">100</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="main-categorie">
+                    <div class="tab-content fix">
+                        <div id="grid-view">
+                            <div class="row mt-5">
+                                <div th:if="${message}" th:text="${message}"></div>
+
+                                <div th:each="product:${productPage}" class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                    <div style="border: 2px solid grid; border-radius: 10px;" class="product panel card poly-item text-center">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div style="border-radius: 100%; float: right; position: absolute; top: 7px; right: 7px" class="btn btn-outline-danger" th:attr="ng-click=@{|cartFav.addFav(${product.id})|}">
+                                                    <i class="far fa-heart"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a class="" th:href="@{|/product/detail/${product.id}|}">
+                                            <img style="padding-top: 15px" th:src="@{|/assets/images/${product.image}|}" />
+                                        </a>
+                                        <div class="card-body">
+                                            <div style="font-size: 19px; font-weight: bolder; font-family: 'Times New Roman', Times, serif; text-transform: capitalize;" class="panel-title" th:utext="${product.name}"></div>
+                                            <h5 style="font-size: 19px; font-family: 'Times New Roman', Times, serif;" class="mt-3"><strong>[[${#numbers.formatDecimal(product.price - (product.price * product.discount.percents/100), 1, 'DEFAULT', 0, 'DEFAULT')}]] đ</strong>
+                                                <p class="ui red label">-[[${#numbers.formatDecimal(product.discount.percents, 1, 'DEFAULT', 0, 'DEFAULT')}]]%</p>
+                                            </h5>
+                                            <p class="mt-3">
+                                                <b style="font-size: 17px; font-family: 'Times New Roman', Times, serif;" class="prev-price"><strong>[[${#numbers.formatDecimal(product.price, 1, 'DEFAULT', 0, 'DEFAULT')}]]đ</strong></b>
+                                            </p>
+                                        </div>
+                                        <div class="card-body">
+                                            <div th:if="${#request.remoteUser}" class="row">
+
+                                                <div class="col">
+                                                    <div th:if="${product.available==true}" th:attr="ng-click=@{|cart.add(${product.id})|}"><button class="ui inverted blue button form-control">Mua ngay</button></div>
+                                                    <div th:if="${product.available==false}" class="btn btn-secondary form-control">ĐÃ BÁN HẾT</div>
+                                                </div>
+                                            </div>
+                                            <div th:unless="${#request.remoteUser}" class="row">
+
+                                                <div class="col">
+                                                    <a th:if="${product.available==true}" th:href="@{|/security/login/form|}"><button class="ui inverted blue button form-control">Mua ngay</button></a>
+                                                    <a th:if="${product.available==false}" th:href="@{|/security/login/form|}" class="btn btn-secondary form-control">ĐÃ BÁN HẾT</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pro-pagination mt-4">
+                            <ul style="margin: 0 auto" class="blog-pagination" th:if="${productPage.totalPages> 0}">
+                                <li class="active" th:class="${ 1== productPage.number + 1} ? 'page-item active' : 'page-item'">
+                                    <a th:href="@{/product/list(name=${name}, size=${productPage.size}, page=${1})}">
+                                        <i class="fas fa-backward"></i></a>
+                                </li>
+                                <li class="page-item active" th:each="pageNumber : ${pageNumbers}" th:if="${productPage.totalPages > 1}" th:class="${pageNumber == productPage.number + 1} ? 'page-item active' : 'page-item'">
+                                    <a th:href="@{/product/list(name=${name}, size=${productPage.size}, page=${pageNumber})}" th:text="${pageNumber}"></a>
+                                </li>
+
+                                <li th:class="${ productPage.totalPages == productPage.number + 1} ? 'page-item active' : 'page-item'">
+                                    <a th:href="@{/product/list(name=${name}, size=${productPage.size}, page=${productPage.totalPages})}"><i class="fas fa-forward"></i></a>
+                                </li>
+                            </ul>
+                            <div class="product-pagination ">
+                                <span style="font-size: 15px" class="grid-item-list">Trang [[${productPage.number + 1}]] trong ([[${productPage.totalPages}]])</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

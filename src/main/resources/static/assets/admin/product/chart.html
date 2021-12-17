@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+
+</head>
+
+<body>
+    <div style="margin-top: 20px; margin-right: 180px;" class="container text-center">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Doanh thu</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Loại hàng bán được</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-profiles-tab" data-bs-toggle="pill" data-bs-target="#pills-profiles" type="button" role="tab" aria-controls="pills-profiles" aria-selected="false">Thống kê loại hàng</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="row">
+                    <div class="col">
+                        <div style="width: 1255px; height: 621px;">
+                            <canvas id="bar-chartcanvas"></canvas>
+                        </div>
+                        <br> <br>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title"> Doanh thu theo tháng</h4>
+                                    </div>
+                                    <form>
+                                        <div class="card-body">
+                                            <table class="table table-hover">
+                                                <thead class=" text-primary">
+                                                    <th>Tháng</th>
+                                                    <th>Doanh thu</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tbody ng-repeat="item in amount">
+                                                        <td>{{item[0]}}</td>
+                                                        <td style="text-align: center;">{{item[1] | number}} đ</td>
+                                                    </tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title"> Doanh thu theo ngày</h4>
+                                    </div>
+                                    <form>
+                                        <div class="row offset-1 mt-3">
+                                            <div class="col-4">
+                                                <input class="form-control" type="text" name="startDate" ng-model="startDate" id="" required>
+                                            </div>
+                                            <div class="col-4">
+                                                <input class="form-control" type="text" name="endDate" ng-model="endDate" id="" required>
+                                            </div>
+                                            <div class="col-3">
+                                                <button class="form-control btn btn-primary" ng-click="getDay()">Tìm kiếm</button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table table-hover">
+                                                <thead class=" text-primary">
+                                                    <th>Tháng</th>
+                                                    <th>Doanh thu</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tbody ng-repeat="item in ngay">
+                                                        <td>{{item[0]}}</td>
+                                                        <td style="text-align: center;">{{item[1] | number}} đ</td>
+                                                    </tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div style="" class="row">
+                    <div style="width: 1255px; height: 621px;">
+                        <canvas id="bar-amount"></canvas>
+                    </div>
+                    <br>
+                    <div class="col mt-5">
+                        <div class="card" style="width: 1256px;">
+                            <div class="card-header">
+                                <h4 class="card-title"> Loại hàng bán được</h4>
+                            </div>
+                            <form>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class=" text-primary">
+                                                <th>Loại hàng</th>
+                                                <th style="text-align: center;">Số lượng bán </th>
+                                                <th style="text-align: center;">Doanh thu</th>
+                                            </thead>
+                                            <tbody>
+                                                <tbody ng-repeat="item in items">
+                                                    <td>{{item[0].name.name}}</td>
+                                                    <td style="text-align: center; ">{{item[0].soLuong}}</td>
+                                                    <td style="text-align: center;">{{item[0].doanhthu | number}} đ</td>
+                                                </tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profiles" role="tabpanel" aria-labelledby="pills-profiles-tab">
+                <div style="" class="row">
+                    <div style="width: 1255px; height: 621px;">
+                        <canvas id="bar-loaihang"></canvas>
+                    </div>
+                    <br>
+                    <div class="col mt-5">
+                        <div class="card" style="width: 1256px;">
+                            <div class="card-header">
+                                <h4 class="card-title"> Thống kê loại hàng</h4>
+                            </div>
+                            <form>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class=" text-primary">
+                                                <th>Loại hàng</th>
+                                                <th style="text-align: center;">Số lượng</th>
+                                            </thead>
+                                            <tbody>
+                                                <tbody ng-repeat="item in category">
+                                                    <td>{{item[0]}}</td>
+                                                    <td style="text-align: center; ">{{item[1]}}</td>
+                                                </tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>

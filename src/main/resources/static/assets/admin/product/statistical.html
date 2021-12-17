@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+	crossorigin="anonymous">
+	
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/frozen.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+<title></title>
+
+<style>
+	#chartdiv {
+	  width: 100%;
+	  height: 500px;
+	}
+</style>
+
+
+</head>
+<body>
+	<div style="margin-top: 20px;" class="container text-center">
+		
+		<div class="tab-content" id="pills-tabContent">
+			<div class="tab-pane fade show active" id="pills-home"
+				role="tabpanel" aria-labelledby="pills-home-tab">
+				<div style="" class="row">
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-primary mb-4" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/8088489/pexels-photo-8088489.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê người dùng</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-primary"><i
+													class="fas fa-users"></i> {{statisticalUsers}}</span>
+											</h1>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-warning mb-4" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/6498272/pexels-photo-6498272.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê quản lý</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-warning"><i
+													class="fas fa-user-shield"></i> {{authorityDirector}}</span>
+											</h1>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-success mb-4" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/8059119/pexels-photo-8059119.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê nhân viên</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-success"><i class="far fa-user"></i>
+													{{authorityStaff}}</span>
+											</h1>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-danger mb-4" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/4202325/pexels-photo-4202325.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê danh mục sản phẩm</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-danger"><i
+													class="fas fa-list-ol"></i> {{statisticalCategories}}</span>
+											</h1>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-warning mb-3" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/1005638/pexels-photo-1005638.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê số lượng sản phẩm</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-warning"><i
+													class="fab fa-product-hunt"></i> {{statisticalProducts}}</span>
+											</h1>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-success mb-3" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/9461745/pexels-photo-9461745.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê số lượng đơn hàng</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-success"><i
+													class="fas fa-boxes"></i> {{statisticalOrderDetails}}</span>
+											</h1>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-primary mb-3" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/3807737/pexels-photo-3807737.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê số lượng đơn hàng đang
+												giao</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-primary"><i
+													class="fas fa-shipping-fast"></i> {{orderDetailCancel}}</span>
+											</h1>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-danger mb-6" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/6501723/pexels-photo-6501723.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê số lượng đơn hàng đang
+												chờ xác nhận</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-danger"><i
+													class="fas fa-question"></i> {{orderDetailOnAir}}</span>
+											</h1>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-success mb-3" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/9432955/pexels-photo-9432955.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê số lượng đơn hàng đã hủy</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-success"><i class="fas fa-ban"></i>
+													{{orderDetailFail}} </span>
+											</h1>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-warning mb-6" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/6551136/pexels-photo-6551136.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê số lượng đơn hàng hoàn
+												thành</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-warning"><i
+													class="fas fa-check-circle"></i> {{orderDetailSuccess}} </span>
+											</h1>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-warning mb-3" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/3819969/pexels-photo-3819969.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê tổng số lượng sản phẩm
+												đã đặt</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-warning"><i
+													class="fab fa-shopify"></i> {{totalQuantity}}</span>
+											</h1>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="row">
+							<div class="card border-primary mb-3" style="max-width: 540px;">
+								<div class="row g-0">
+									<div class="col-md-4 img-container">
+										<img style="height: 260px"
+											src="https://images.pexels.com/photos/4386433/pexels-photo-4386433.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+											class="img-fluid rounded-start rounded-circle" alt="...">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body">
+											<h5 class="card-title">Thống kê tổng doanh thu cửa hàng</h5>
+											<h1 class="card-text mt-5">
+												<span class="badge bg-success">{{totalRevenue |
+													number}} đ</span>
+											</h1>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+				aria-labelledby="pills-profile-tab">
+				<div class="row">
+					<div class="col-6">
+						<div id="donutchart" style="width: 900px; height: 500px;"></div>
+					</div>
+					<div class="col-6">
+						<div id="chart_div_order" style="width: 900px; height: 500px;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container mt-4"></div>
+
+	<!-- Optional JavaScript; choose one of the two! -->
+
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+		crossorigin="anonymous"></script>
+	<script src="/assets/admin/authority/chart.js"></script>
+	<script src="/assets/admin/product/statistical.js"></script>
+	<!-- Option 2: Separate Popper and Bootstrap JS -->
+	<!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    -->
+</body>
+</html>

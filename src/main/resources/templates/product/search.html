@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(main)">
+
+<head>
+    <link rel="shortcut icon" href="/assets/images/favicon2.ico" type="image/x-icon">
+    <title>GGT Store</title>
+    <!-- Required meta tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/assets/css/shopping-cart-app.css">
+    <link rel="stylesheet" href="/assets/css/productDetail.css">
+    <link rel="stylesheet" href="/assets/css/font.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/c1afb31dbf.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <script src="https://cdn.lordicon.com/libs/frhvbuzj/lord-icon-2.0.2.js"></script>
+
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossOrigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+</head>
+
+<body>
+    <main ng-app="shopping-cart-app" ng-controller="shoppping-cart-ctrl" class="container">
+        <header class="row container-fluid">
+            <div class="col"></div>
+        </header>
+
+        <nav class="row container-fluid">
+            <div class="col fixed-top">
+                <div th:replace="/layout/_menu.html"></div>
+            </div>
+        </nav>
+
+        <div style="margin-top: 185px" class="row">
+            <div class="col-3">
+                <div class="product_left_sidebar">
+                    <aside class="left_sidebar p_catgories_widget">
+                        <div style="float: left" class="p_w_title">
+                            <div class="panel-body text-center" style="font-size: 17px;">
+                                <strong> <i class="fas fa-stream"></i> BỘ LỌC TÌM KIẾM </strong>
+                            </div>
+                            <div class="sidebar-categorie mt-40">
+                                <h6 class="ml-3 text-center mt-3"> <strong>Theo danh mục</strong></h6>
+                                <ul class="sidbar-style mt-4">
+                                    <li class="form-check mb-2" th:each="c: ${cates}">
+                                        🔥
+                                        <a class="form-check-label hi" style="color: black; padding: 6px;" th:text="${c.name}" th:href="@{|/product/list/search?sid=${c.id}|}">[[${c.name}]]</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="sidebar-categorie mt-40">
+                                <h6 class="ml-3 text-center mt-3 mb-3"> <strong>Theo khoảng giá</strong></h6>
+                                <form th:action="@{/product/searchprice}" class="ml-5" method="post">
+                                    <div class="form-group row" style="float: left;">
+                                        <div class="col-5">
+                                            <input type="number" min="0" style="width: 130px;font-size: 15px;" class="form-control" name="min" th:value="${param.min}" placeholder="Tối thiểu" required="required">
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="number" style="width: 130px;font-size: 15px;" class="form-control" name="max" th:value="${param.max}" placeholder="Tối đa" required="required">
+                                        </div>
+                                        <div class="col-2">
+                                            <button style="height: 35px; width: 42px;" class="btn btn-primary form-control"><i style="color: dark" class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> <br> <br>
+                            <div class="sidebar-categorie mt-40">
+                                <h6 class="ml-3 text-center mt-3"> <strong>Theo hãng sản xuất</strong></h6>
+                                <ul class="sidbar-style mt-4">
+                                    <li class="form-check mb-2" th:each="pro: ${producers}">
+                                        🐱‍🏍
+                                        <a class="form-check-label hi" style="color: black; padding: 6px;" th:text="${pro.name}" th:href="@{|/producer/list/search?pid=${pro.id}|}">[[${pro.name}]]</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
+            <div class="col-9">
+                <div style="background: rgb(27 136 231); height: 57px;" class="grid-list-top border-default universal-padding d-md-flex justify-content-md-between align-items-center mb-30">
+                    <form class="mt-5 text-center" th:action="@{/product/page}" method="get">
+                        <input hidden="hidden" th:value="${name}" name="name" />
+                        <input hidden="hidden" th:value="${brand==null?-1:brand}" name="brand" />
+                        <input hidden="hidden" th:value="${productPage.number}" name="page" />
+                        <!--  -->
+                        <div class="row">
+                            <div class="col-4 mt-2">
+                                <label for="" class="mb-5 text-white"><b>Sắp xếp theo:</b></label>
+                            </div>
+                            <div class="col-5 mb-5">
+                                <select style="width: 282px;" name="filter" class="form-control ui selection dropdown" onchange="this.form.submit()">
+                                    <option th:selected="${filter==0}" value="0">Mặc định</option>
+                                    <option th:selected="${filter==1}" value="1">Mới nhất</option>
+                                    <option th:selected="${filter==2}" value="2">Cũ nhất</option>
+                                    <option th:selected="${filter==3}" value="3">Giá giảm dần</option>
+                                    <option th:selected="${filter==4}" value="4">Giá tăng dần</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </form>
+                    <div class="main-toolbar-sorter clearfix">
+                        <div class="toolbar-sorter d-flex align-items-center">
+                            <label class="" for="" style="font-size: 15px; margin-right: 10px"><strong style="color: white">Hiển thị:</strong></label>
+                            <form style="margin-right: 10px" action="">
+                                <select class="form-control" name="size" id="size" onchange="this.form.submit()">
+                                        <option th:selected="${productPage.size == 9}" value="9">9</option>
+                                        <option th:selected="${productPage.size == 18}" value="18">18</option>
+                                        <option th:selected="${productPage.size == 27}" value="27">27</option>
+                                        <option th:selected="${productPage.size == 50}" value="50">50</option>
+                                        <option th:selected="${productPage.size == 100}" value="100">100</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="main-categorie">
+                    <div class="tab-content fix">
+                        <div id="grid-view">
+                            <div class="row mt-5">
+                                <div th:if="${message}" th:text="${message}"></div>
+                                <div th:each="product:${productPage}" class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                    <div style="border: 2px solid grid; border-radius: 10px;" class="product panel card poly-item text-center">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div style="border-radius: 100%; float: right; position: absolute; top: 7px; right: 7px" class="btn btn-outline-danger" th:attr="ng-click=@{|cartFav.addFav(${product.id})|}">
+                                                    <i class="far fa-heart"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a class="" th:href="@{|/product/detail/${product.id}|}">
+                                            <img style="padding-top: 15px" th:src="@{|/assets/images/${product.image}|}" />
+                                        </a>
+                                        <div class="card-body">
+                                            <div style="font-size: 19px; font-weight: bolder; font-family: 'Times New Roman', Times, serif; text-transform: capitalize;" class="panel-title" th:utext="${product.name}"></div>
+                                            <h5 style="font-size: 19px; font-family: 'Times New Roman', Times, serif;" class="mt-3"><strong>[[${#numbers.formatDecimal(product.price - (product.price * product.discount.percents/100), 1, 'DEFAULT', 0, 'DEFAULT')}]] đ</strong>
+                                                <p class="ui red label">-[[${#numbers.formatDecimal(product.discount.percents, 1, 'DEFAULT', 0, 'DEFAULT')}]]%</p>
+                                            </h5>
+                                            <p class="mt-3">
+                                                <b style="font-size: 17px; font-family: 'Times New Roman', Times, serif;" class="prev-price"><strong>[[${#numbers.formatDecimal(product.price, 1, 'DEFAULT', 0, 'DEFAULT')}]]đ</strong></b>
+                                            </p>
+                                        </div>
+                                        <div class="card-body">
+                                            <div th:if="${#request.remoteUser}" class="row">
+
+                                                <div class="col">
+                                                    <div th:if="${product.available==true}" th:attr="ng-click=@{|cart.add(${product.id})|}"><button class="ui inverted blue button form-control">Mua ngay</button></div>
+                                                    <div th:if="${product.available==false}" class="btn btn-secondary form-control">ĐÃ BÁN HẾT</div>
+                                                </div>
+                                            </div>
+                                            <div th:unless="${#request.remoteUser}" class="row">
+
+                                                <div class="col">
+                                                    <a th:if="${product.available==true}" th:href="@{|/security/login/form|}"><button class="ui inverted blue button form-control">Mua ngay</button></a>
+                                                    <a th:if="${product.available==false}" th:href="@{|/security/login/form|}" class="btn btn-secondary form-control">ĐÃ BÁN HẾT</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pro-pagination mt-4">
+                            <ul style="margin: 0 auto" class="blog-pagination" th:if="${productPage.totalPages> 0}">
+                                <li class="active" th:class="${ 1== productPage.number + 1} ? 'page-item active' : 'page-item'">
+                                    <a th:href="@{/product/list(name=${name}, size=${productPage.size}, page=${1})}">
+                                        <i class="fas fa-backward"></i></a>
+                                </li>
+                                <li class="page-item active" th:each="pageNumber : ${pageNumbers}" th:if="${productPage.totalPages > 1}" th:class="${pageNumber == productPage.number + 1} ? 'page-item active' : 'page-item'">
+                                    <a th:href="@{/product/list(name=${name}, size=${productPage.size}, page=${pageNumber})}" th:text="${pageNumber}"></a>
+                                </li>
+
+                                <li th:class="${ productPage.totalPages == productPage.number + 1} ? 'page-item active' : 'page-item'">
+                                    <a th:href="@{/product/list(name=${name}, size=${productPage.size}, page=${productPage.totalPages})}"><i class="fas fa-forward"></i></a>
+                                </li>
+                            </ul>
+                            <div class="product-pagination ">
+                                <span style="font-size: 15px" class="grid-item-list">Trang [[${productPage.number + 1}]] trong ([[${productPage.totalPages}]])</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="new_footer_area bg_color mt-5 container-fluid">
+        <div class="new_footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="f_widget company_widget wow fadeInLeft" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                            <h3 class="f-title f_600 t_color f_size_18">Liên lạc với chúng tôi</h3>
+                            <p>Đừng bỏ lỡ các chương trình quan trọng của của hàng !
+                            </p>
+                            <form action="#" class="f_subscribe_two mailchimp" method="post" novalidate="true" _lpchecked="1">
+                                <input type="text" name="EMAIL" class="form-control memail" placeholder="Email của bạn">
+                                <button class="btn btn_get btn_get_two" type="">Đăng ký</button>
+                                <p class="mchimp-errmessage" style="display: none;"></p>
+                                <p class="mchimp-sucmessage" style="display: none;"></p>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="f_widget about-widget pl_70 wow fadeInLeft" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInLeft;">
+                            <h3 class="f-title f_600 t_color f_size_18">Tải app</h3>
+                            <ul class="list-unstyled f_list">
+                                <li><a href="#">Android App</a></li>
+                                <li><a href="#">IOS App</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
+                            <h3 class="f-title f_600 t_color f_size_18">Mạng xã hội của chúng tôi</h3>
+                            <div class="f_social_icon">
+                                <a href="#" class="fab fa-facebook"></a>
+                                <a href="#" class="fab fa-twitter"></a>
+                                <a href="#" class="fab fa-linkedin"></a>
+                                <a href="#" class="fab fa-pinterest"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer_bg">
+                <div class="footer_bg_one"></div>
+                <div class="footer_bg_two"></div>
+            </div>
+        </div>
+        <div class="footer_bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-sm-7">
+                        <p class="mb-0 f_400">© GGT Store.. 2021 All rights reserved.</p>
+                    </div>
+                    <div class="col-lg-6 col-sm-5 text-right"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <style>
+        .fb-livechat,
+        .fb-widget {
+            display: none
+        }
+        
+        .ctrlq.fb-button,
+        .ctrlq.fb-close {
+            position: fixed;
+            right: 4px;
+            cursor: pointer
+        }
+        
+        .ctrlq.fb-button {
+            z-index: 999;
+            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEyOCAxMjgiIGhlaWdodD0iMTI4cHgiIGlkPSJMYXllcl8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMjggMTI4IiB3aWR0aD0iMTI4cHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnPjxyZWN0IGZpbGw9IiMwMDg0RkYiIGhlaWdodD0iMTI4IiB3aWR0aD0iMTI4Ii8+PC9nPjxwYXRoIGQ9Ik02NCwxNy41MzFjLTI1LjQwNSwwLTQ2LDE5LjI1OS00Niw0My4wMTVjMCwxMy41MTUsNi42NjUsMjUuNTc0LDE3LjA4OSwzMy40NnYxNi40NjIgIGwxNS42OTgtOC43MDdjNC4xODYsMS4xNzEsOC42MjEsMS44LDEzLjIxMywxLjhjMjUuNDA1LDAsNDYtMTkuMjU4LDQ2LTQzLjAxNUMxMTAsMzYuNzksODkuNDA1LDE3LjUzMSw2NCwxNy41MzF6IE02OC44NDUsNzUuMjE0ICBMNTYuOTQ3LDYyLjg1NUwzNC4wMzUsNzUuNTI0bDI1LjEyLTI2LjY1N2wxMS44OTgsMTIuMzU5bDIyLjkxLTEyLjY3TDY4Ljg0NSw3NS4yMTR6IiBmaWxsPSIjRkZGRkZGIiBpZD0iQnViYmxlX1NoYXBlIi8+PC9zdmc+) center no-repeat #0084ff;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            bottom: 60px;
+            border: 0;
+            outline: 0;
+            border-radius: 60px;
+            -webkit-border-radius: 60px;
+            -moz-border-radius: 60px;
+            -ms-border-radius: 60px;
+            -o-border-radius: 60px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, .06), 0 2px 32px rgba(0, 0, 0, .16);
+            -webkit-transition: box-shadow .2s ease;
+            background-size: 80%;
+            transition: all .2s ease-in-out
+        }
+        
+        .ctrlq.fb-button:focus,
+        .ctrlq.fb-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .09), 0 4px 40px rgba(0, 0, 0, .24)
+        }
+        
+        .fb-widget {
+            background: #fff;
+            z-index: 1000;
+            position: fixed;
+            width: 360px;
+            height: 435px;
+            overflow: hidden;
+            opacity: 0;
+            bottom: 0;
+            right: 24px;
+            border-radius: 6px;
+            -o-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            box-shadow: 0 5px 40px rgba(0, 0, 0, .16);
+            -webkit-box-shadow: 0 5px 40px rgba(0, 0, 0, .16);
+            -moz-box-shadow: 0 5px 40px rgba(0, 0, 0, .16);
+            -o-box-shadow: 0 5px 40px rgba(0, 0, 0, .16)
+        }
+        
+        .fb-credit {
+            text-align: center;
+            margin-top: 8px
+        }
+        
+        .fb-credit a {
+            transition: none;
+            color: #bec2c9;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            text-decoration: none;
+            border: 0;
+            font-weight: 400
+        }
+        
+        .ctrlq.fb-overlay {
+            z-index: 0;
+            position: fixed;
+            height: 100vh;
+            width: 100vw;
+            -webkit-transition: opacity .4s, visibility .4s;
+            transition: opacity .4s, visibility .4s;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, .05);
+            display: none
+        }
+        
+        .ctrlq.fb-close {
+            z-index: 4;
+            padding: 0 6px;
+            background: #365899;
+            font-weight: 700;
+            font-size: 11px;
+            color: #fff;
+            margin: 8px;
+            border-radius: 3px
+        }
+        
+        .ctrlq.fb-close::after {
+            content: "X";
+            font-family: sans-serif
+        }
+        
+        .bubble {
+            width: 20px;
+            height: 20px;
+            background: #c00;
+            color: #fff;
+            position: absolute;
+            z-index: 999999999;
+            text-align: center;
+            vertical-align: middle;
+            top: -2px;
+            left: -5px;
+            border-radius: 50%;
+        }
+        
+        .bubble-msg {
+            width: 120px;
+            left: -140px;
+            top: 5px;
+            position: relative;
+            background: rgba(59, 89, 152, .8);
+            color: #fff;
+            padding: 5px 8px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 13px;
+        }
+    </style>
+    <div class="fb-livechat">
+        <div class="ctrlq fb-overlay"></div>
+        <div class="fb-widget">
+            <div class="ctrlq fb-close"></div>
+            <div class="fb-page" data-href="https://www.facebook.com/Ngonnguyenvan2604" data-tabs="messages" data-width="360" data-height="400" data-small-header="true" data-hide-cover="true" data-show-facepile="false"></div>
+            <div class="fb-credit">
+                <a href="https://chanhtuoi.com" target="_blank">Powered by
+					GGT-Team</a>
+            </div>
+            <div id="fb-root"></div>
+        </div>
+        <a href="https://m.me/Ngonnguyenvan2604" title="Gửi tin nhắn cho chúng tôi qua Facebook" class="ctrlq fb-button">
+            <div class="bubble">10</div>
+            <div class="bubble-msg">Bạn cần hỗ trợ?</div>
+        </a>
+    </div>
+    <button id="myBtn" title="Lên đầu trang">
+        <div class="scroll-to-top scroll-to-target" style="display: block;">
+            <i class="fas fa-arrow-up"></i>
+        </div>   
+    </button>
+    <script>
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+
+            if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display = "none";
+            }
+        }
+
+        document.getElementById('myBtn').addEventListener("click", function() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        });
+    </script>
+    <script src="https://nguyenvandinh.com/Content/template/ANThanhs/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script>
+        var offset = 200;
+        var duration = 500;
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > offset) {
+                $('.scroll-to-top').fadeIn(400);
+            } else {
+                $('.scroll-to-top').fadeOut(400);
+            }
+        });
+        $('.scroll-to-top').click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({
+                scrollTop: 0
+            }, 600);
+            return false;
+        });
+    </script>
+    <script src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        jQuery(document).ready(function($) {
+            function detectmob() {
+                if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            var t = {
+                delay: 125,
+                overlay: $(".fb-overlay"),
+                widget: $(".fb-widget"),
+                button: $(".fb-button")
+            };
+            setTimeout(function() {
+                $("div.fb-livechat").fadeIn()
+            }, 8 * t.delay);
+            if (!detectmob()) {
+                $(".ctrlq").on("click", function(e) {
+                    e.preventDefault(), t.overlay.is(":visible") ? (t.overlay.fadeOut(t.delay), t.widget.stop().animate({
+                        bottom: 0,
+                        opacity: 0
+                    }, 2 * t.delay, function() {
+                        $(this).hide("slow"), t.button.show()
+                    })) : t.button.fadeOut("medium", function() {
+                        t.widget.stop().show().animate({
+                            bottom: "30px",
+                            opacity: 1
+                        }, 2 * t.delay), t.overlay.fadeIn(t.delay)
+                    })
+                })
+            }
+        });
+    </script>
+    <script src="/assets/js/shopping-cart-app.js"></script>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'vi'
+            }, 'translate_select');
+        }
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'vi'
+            }, 'translate_select');
+        }
+    </script>
+    <script>
+        $('button').click(function() {
+            $('.alert').removeClass("hide");
+            $('.alert').addClass("show");
+            $('.alert').addClass("showAlert");
+            setTimeout(function() {
+                $('.alert').addClass("hide");
+                $('.alert').removeClass("show");
+            }, 3000);
+        });
+        $('.close-btn').click(function() {
+            $('.alert').addClass("hide");
+            $('.alert').removeClass("show");
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
