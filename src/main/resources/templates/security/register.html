@@ -10,8 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/c1afb31dbf.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <link rel="shortcut icon" href="/assets/images/favicon2.ico"
-	type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/images/favicon2.ico" type="image/x-icon">
     <title>Đăng ký</title>
     <style>
         body {
@@ -24,23 +23,22 @@
 
 <body>
     <main ng-app="">
-        <form th:action="@{/security/saveOrUpdate}" th:object="${account}" method="post" class="col mt-4" 
-        	style="margin: 0 auto; width: 70%; margin-bottom: 30px">
+        <form th:action="@{/security/saveOrUpdate}" th:object="${account}" method="post" class="col mt-4" style="margin: 0 auto; width: 70%; margin-bottom: 30px">
             <div class="card text-center offset-6">
                 <div style="font-size: 26px" class="card-header bg-dark text-white">ĐĂNG KÝ TÀI KHOẢN
                 </div>
                 <div class="card-body">
                     <div class="form-group mb-3">
                         <div>Tên đăng nhập:</div>
-                        <br /> <input name="username" id="username" th:field="*{username}" class="form-control" type="text">
+                        <br /> <input name="username" id="username" th:field="*{username}" class="form-control" type="text" required>
                     </div>
                     <div class="form-group mb-3">
                         <div>Mật khẩu:</div>
-                        <br /> <input id="password" th:value="*{password}" class="form-control" type="password" name="password">
+                        <br /> <input id="password" th:value="*{password}" class="form-control" type="password" name="password" required>
                     </div>
                     <div class="form-group mb-3">
                         <div class="form-group">
-                            <label for="gender">Giới Tính</label> <select id="gender" th:field="*{gender}" class="form-control" style="height: 34px;" name="gender">
+                            <label for="gender">Giới Tính</label> <select required id="gender" th:field="*{gender}" class="form-control" style="height: 34px;" name="gender">
                         <option value="true">Nam</option>
                         <option value="false">Nữ</option>
                     </select>
@@ -48,22 +46,22 @@
                     </div>
                     <div class="form-group mb-3">
                         <div>Tên đầy đủ:</div>
-                        <br /> <input name="fullname" id="fullname" th:field="*{fullname}" class="form-control" type="text">
+                        <br /> <input name="fullname" id="fullname" required th:field="*{fullname}" class="form-control" type="text">
                     </div>
                     <div class="form-group mb-3">
                         <div>Địa chỉ email:</div>
-                        <br /> <input id="email" th:field="*{email}" class="form-control" type="text" name="email">
+                        <br /> <input id="email" th:field="*{email}" required class="form-control" type="text" name="email">
                         <small th:if="${error}" th:text="${error}" class="text-danger"><i></i></small>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="address">Địa Chỉ</label> <input type="text" th:field="*{address}" id="address" class="form-control" name="address">
+                                <label for="address">Địa Chỉ</label> <input required type="text" th:field="*{address}" id="address" class="form-control" name="address">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="phone">Số điện thoại</label> <input id="phone" th:field="*{phone}" class="form-control" type="text" name="phone">
+                                <label for="phone">Số điện thoại</label> <input required id="phone" th:field="*{phone}" class="form-control" type="text" name="phone">
                             </div>
                         </div>
                     </div>
@@ -108,11 +106,10 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-						<div class="col">
-							<a style="float: left; text-decoration: none" class=""
-						th:href="@{/product/list}"><i class="fas fa-arrow-circle-left"></i> Trang chủ</a>
-						</div>
-					</div>
+                        <div class="col">
+                            <a style="float: left; text-decoration: none" class="" th:href="@{/product/list}"><i class="fas fa-arrow-circle-left"></i> Trang chủ</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
